@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { signOut } from "@/lib/auth/actions";
+import { Logo } from "@/components/branding/Logo";
 
 const NAV = [
   { href: "/admin", label: "Overview" },
@@ -21,9 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="sticky top-0 z-30 border-b border-neutral-800 bg-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Link href="/admin" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-sm font-bold text-white">
-              +
-            </span>
+            <Logo size="md" withWordmark={false} />
             <span className="text-sm font-bold tracking-wide text-white">
               ESNTL Admin
             </span>

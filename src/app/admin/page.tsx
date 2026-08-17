@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { getOverviewStats } from "@/lib/data/admin";
 import { formatNaira } from "@/lib/utils";
+import { Logo } from "@/components/branding/Logo";
 
 export default async function AdminOverviewPage() {
   const supabase = await createClient();
@@ -17,6 +18,9 @@ export default async function AdminOverviewPage() {
 
   return (
     <div>
+      <div className="mb-8 flex justify-center">
+        <Logo size="xl" animated withTagline />
+      </div>
       <h1 className="mb-4 text-lg font-semibold text-ink">Overview</h1>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {cards.map((card) => (

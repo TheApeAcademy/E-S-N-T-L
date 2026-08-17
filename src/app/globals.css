@@ -74,3 +74,41 @@ body {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Logo jiggle: a quick wiggle burst at the start of every 2s cycle, then holds still. */
+@keyframes esntl-jiggle {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  7% {
+    transform: rotate(-10deg) scale(1.04);
+  }
+  14% {
+    transform: rotate(9deg) scale(1.04);
+  }
+  21% {
+    transform: rotate(-7deg) scale(1.02);
+  }
+  28% {
+    transform: rotate(6deg) scale(1.02);
+  }
+  35% {
+    transform: rotate(-3deg) scale(1.01);
+  }
+  42% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.animate-jiggle {
+  animation: esntl-jiggle 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-jiggle {
+    animation: none;
+  }
+}
