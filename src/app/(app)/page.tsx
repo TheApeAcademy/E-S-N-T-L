@@ -6,7 +6,7 @@ import { browseProducts } from "@/lib/data/products";
 import { getSubscriptionsForUser, subscriptionAmount } from "@/lib/data/subscriptions";
 import { ActiveBasketCard } from "@/components/basket/ActiveBasketCard";
 import { BasketCard } from "@/components/basket/BasketCard";
-import { ProductCard } from "@/components/basket/ProductCard";
+import { ProductGridCard } from "@/components/basket/ProductGridCard";
 import { ProductSearch } from "@/components/basket/ProductSearch";
 import { Logo } from "@/components/branding/Logo";
 
@@ -98,9 +98,9 @@ export default async function HomePage() {
             See all
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="columns-2 gap-3">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductGridCard key={product.id} product={product} />
           ))}
         </div>
       </section>

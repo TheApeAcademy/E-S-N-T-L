@@ -13,7 +13,7 @@ export function TopBar({ title, backHref, right, className }: TopBarProps) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 flex h-14 items-center justify-between border-b border-neutral-200 bg-white/95 px-4 backdrop-blur",
+        "sticky top-0 z-30 flex h-14 items-center justify-between border-b border-neutral-200/60 bg-white/80 px-4 backdrop-blur-xl",
         className,
       )}
     >

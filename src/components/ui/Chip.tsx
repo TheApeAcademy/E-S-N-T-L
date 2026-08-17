@@ -13,7 +13,7 @@ export function Chip({ label, icon, active, onClick }: ChipProps) {
       type="button"
       onClick={onClick}
       className={cn(
-        "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-colors",
+        "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-medium transition-all active:scale-95",
         active
           ? "border-brand-500 bg-brand-500 text-white"
           : "border-neutral-200 bg-white text-neutral-700 hover:border-brand-300",

@@ -17,7 +17,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-200 bg-white/95 backdrop-blur">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-200/60 bg-white/80 backdrop-blur-xl">
       <div className="relative mx-auto flex max-w-lg items-center justify-between px-2">
         {NAV_ITEMS.slice(0, 2).map((item) => (
           <NavItem key={item.href} item={item} pathname={pathname} />

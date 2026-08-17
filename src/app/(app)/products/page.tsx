@@ -2,7 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { browseProducts, getCategories } from "@/lib/data/products";
 import { TopBar } from "@/components/nav/TopBar";
-import { ProductCard } from "@/components/basket/ProductCard";
+import { ProductGridCard } from "@/components/basket/ProductGridCard";
 import { cn } from "@/lib/utils";
 
 export default async function ProductsPage({
@@ -54,14 +54,14 @@ export default async function ProductsPage({
           {products.length} product{products.length === 1 ? "" : "s"}
         </p>
 
-        <div className="flex flex-col gap-2 pb-8">
-          {products.length === 0 && (
-            <p className="py-8 text-center text-sm text-neutral-400">
-              No products in this category yet.
-            </p>
-          )}
+        {products.length === 0 && (
+          <p className="py-8 text-center text-sm text-neutral-400">
+            No products in this category yet.
+          </p>
+        )}
+        <div className="columns-2 gap-3 pb-8">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductGridCard key={product.id} product={product} />
           ))}
         </div>
       </div>

@@ -1,11 +1,13 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/lib/database.types";
-import type { Business, Product } from "@/lib/data/types";
+import type { Business, Category, Product } from "@/lib/data/types";
 
 type Client = SupabaseClient<Database>;
 type ProductWithBusiness = Product & { business: Business | null };
+export type ProductWithCategory = ProductWithBusiness & { category: Category | null };
 
 const PRODUCT_WITH_BUSINESS_SELECT = `*, business:businesses (*)`;
+const PRODUCT_WITH_CATEGORY_SELECT = `*, business:businesses (*), category:categories (*)`;
 
 /** Product discovery search — returns all vendor listings for a query, so customers can compare price/vendor (spec section 5/15). */
 export async function searchProducts(supabase: Client, query: string) {
@@ -50,7 +52,7 @@ export async function getSuggestedProducts(
 export async function browseProducts(supabase: Client, categoryId?: string, limit?: number) {
   let query = supabase
     .from("products")
-    .select(PRODUCT_WITH_BUSINESS_SELECT)
+    .select(PRODUCT_WITH_CATEGORY_SELECT)
     .eq("is_available", true)
     .order("name", { ascending: true });
 
@@ -63,7 +65,7 @@ export async function browseProducts(supabase: Client, categoryId?: string, limi
 
   const { data, error } = await query;
   if (error) throw error;
-  return (data ?? []) as unknown as ProductWithBusiness[];
+  return (data ?? []) as unknown as ProductWithCategory[];
 }
 
 export async function getCategories(supabase: Client) {

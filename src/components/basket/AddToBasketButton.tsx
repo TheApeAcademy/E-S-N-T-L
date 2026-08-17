@@ -5,6 +5,7 @@ import { Plus, X, Check } from "lucide-react";
 import { addProductToBasket, getMyDraftBaskets } from "@/lib/actions/baskets";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 import type { Product } from "@/lib/data/types";
 
 interface DraftBasket {
@@ -13,7 +14,13 @@ interface DraftBasket {
   status: string;
 }
 
-export function AddToBasketButton({ product }: { product: Product }) {
+export function AddToBasketButton({
+  product,
+  fullWidth,
+}: {
+  product: Product;
+  fullWidth?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const [baskets, setBaskets] = useState<DraftBasket[] | null>(null);
   const [newName, setNewName] = useState("");
@@ -46,7 +53,10 @@ export function AddToBasketButton({ product }: { product: Product }) {
       <button
         type="button"
         onClick={openSheet}
-        className="flex shrink-0 items-center gap-1 rounded-full bg-brand-500 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-600"
+        className={cn(
+          "flex shrink-0 items-center justify-center gap-1 rounded-full bg-brand-500 px-3 py-2 text-xs font-semibold text-white transition-all active:scale-95 hover:bg-brand-600",
+          fullWidth && "w-full",
+        )}
       >
         {added ? <Check size={14} /> : <Plus size={14} />}
         {added ? "Added" : "Add to Basket"}
