@@ -75,6 +75,11 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ESNTL wordmark typeface, matched to the logo artwork (serif, wide tracking). */
+.font-wordmark {
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
 /* Logo jiggle: a quick wiggle burst at the start of every 2s cycle, then holds still. */
 @keyframes esntl-jiggle {
   0%,

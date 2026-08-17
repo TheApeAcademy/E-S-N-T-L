@@ -6,6 +6,7 @@ import { getSubscriptionsForUser, subscriptionAmount } from "@/lib/data/subscrip
 import { ActiveBasketCard } from "@/components/basket/ActiveBasketCard";
 import { BasketCard } from "@/components/basket/BasketCard";
 import { ProductSearch } from "@/components/basket/ProductSearch";
+import { Logo } from "@/components/branding/Logo";
 
 function greeting() {
   const hour = new Date().getHours();
@@ -27,6 +28,13 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-6 px-4 pt-6">
+      <div className="flex items-center gap-2">
+        <Logo size="sm" animated />
+        <span className="font-wordmark text-lg font-bold uppercase tracking-[0.3em] text-ink">
+          ESNTL
+        </span>
+      </div>
+
       <div>
         <h1 className="text-xl font-semibold text-ink">
           {greeting()}, {firstName} 👋
