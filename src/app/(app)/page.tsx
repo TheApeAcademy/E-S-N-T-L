@@ -2,9 +2,11 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/auth/session";
 import { getBasketTemplates } from "@/lib/data/baskets";
+import { browseProducts } from "@/lib/data/products";
 import { getSubscriptionsForUser, subscriptionAmount } from "@/lib/data/subscriptions";
 import { ActiveBasketCard } from "@/components/basket/ActiveBasketCard";
 import { BasketCard } from "@/components/basket/BasketCard";
+import { ProductCard } from "@/components/basket/ProductCard";
 import { ProductSearch } from "@/components/basket/ProductSearch";
 import { Logo } from "@/components/branding/Logo";
 
@@ -19,9 +21,10 @@ export default async function HomePage() {
   const session = await getCurrentUser();
   const supabase = await createClient();
 
-  const [templates, activeSubscriptions] = await Promise.all([
+  const [templates, activeSubscriptions, featuredProducts] = await Promise.all([
     getBasketTemplates(supabase),
     session ? getSubscriptionsForUser(supabase, session.user.id, "active") : [],
+    browseProducts(supabase, undefined, 10),
   ]);
 
   const firstName = session?.profile?.full_name?.split(" ")[0] ?? "there";
@@ -89,11 +92,17 @@ export default async function HomePage() {
       </section>
 
       <section className="pb-4">
-        <h2 className="mb-3 text-sm font-semibold text-ink">Discover Products</h2>
-        <p className="text-xs text-neutral-500">
-          Search above to compare prices across ESNTL businesses and add items
-          straight to a Basket.
-        </p>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-ink">Discover Products</h2>
+          <Link href="/products" className="text-xs font-medium text-brand-600">
+            See all
+          </Link>
+        </div>
+        <div className="flex flex-col gap-2">
+          {featuredProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </section>
     </div>
   );

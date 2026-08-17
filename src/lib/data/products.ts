@@ -46,6 +46,26 @@ export async function getSuggestedProducts(
   return (data ?? []) as unknown as ProductWithBusiness[];
 }
 
+/** Full marketplace browse — every available product, optionally filtered by category. */
+export async function browseProducts(supabase: Client, categoryId?: string, limit?: number) {
+  let query = supabase
+    .from("products")
+    .select(PRODUCT_WITH_BUSINESS_SELECT)
+    .eq("is_available", true)
+    .order("name", { ascending: true });
+
+  if (categoryId) {
+    query = query.eq("category_id", categoryId);
+  }
+  if (limit) {
+    query = query.limit(limit);
+  }
+
+  const { data, error } = await query;
+  if (error) throw error;
+  return (data ?? []) as unknown as ProductWithBusiness[];
+}
+
 export async function getCategories(supabase: Client) {
   const { data, error } = await supabase.from("categories").select("*").order("name");
   if (error) throw error;
