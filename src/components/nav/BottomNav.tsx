@@ -58,7 +58,14 @@ function NavItem({
         isActive ? "text-brand-600" : "text-neutral-400 hover:text-neutral-600",
       )}
     >
-      <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+      <span
+        className={cn(
+          "flex h-7 w-11 items-center justify-center rounded-full transition-colors",
+          isActive && "bg-brand-50",
+        )}
+      >
+        <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+      </span>
       {item.label}
     </Link>
   );

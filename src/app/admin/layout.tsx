@@ -2,17 +2,7 @@ import Link from "next/link";
 import { requireUser } from "@/lib/auth/session";
 import { signOut } from "@/lib/auth/actions";
 import { Logo } from "@/components/branding/Logo";
-
-const NAV = [
-  { href: "/admin", label: "Overview" },
-  { href: "/admin/customers", label: "Customers" },
-  { href: "/admin/businesses", label: "Businesses" },
-  { href: "/admin/products", label: "Products" },
-  { href: "/admin/baskets", label: "Baskets" },
-  { href: "/admin/subscriptions", label: "Subscriptions" },
-  { href: "/admin/payments", label: "Payments" },
-  { href: "/admin/deliveries", label: "Deliveries" },
-] as const;
+import { AdminNav } from "@/components/admin/AdminNav";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const { profile } = await requireUser();
@@ -44,17 +34,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </form>
           </div>
         </div>
-        <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 pb-2">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-300 hover:bg-neutral-800 hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <AdminNav />
       </header>
       <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
     </div>

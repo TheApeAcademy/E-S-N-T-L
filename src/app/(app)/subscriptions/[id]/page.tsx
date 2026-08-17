@@ -41,7 +41,7 @@ export default async function SubscriptionDetailPage({
       <TopBar
         title={subscription.basket?.name ?? "Subscription"}
         backHref="/subscriptions"
-        right={<Badge tone={statusTone(subscription.status)}>{subscription.status}</Badge>}
+        right={<Badge onColor>{subscription.status}</Badge>}
       />
 
       <div className="flex flex-col gap-6 px-4 pb-8 pt-4">

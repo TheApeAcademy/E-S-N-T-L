@@ -9,7 +9,7 @@ import { BasketItemRow } from "@/components/basket/BasketItemRow";
 import { BasketBuilderSearch } from "@/components/basket/BasketBuilderSearch";
 import { BasketSummaryBar } from "@/components/basket/BasketSummaryBar";
 import { AddSuggestedButton } from "@/components/basket/AddSuggestedButton";
-import { Badge, statusTone } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/Badge";
 import { LinkButton } from "@/components/ui/Button";
 
 export default async function BasketDetailPage({
@@ -53,7 +53,7 @@ export default async function BasketDetailPage({
       <TopBar
         title={basket.name}
         backHref="/baskets"
-        right={<Badge tone={statusTone(basket.status)}>{basket.status}</Badge>}
+        right={<Badge onColor>{basket.status}</Badge>}
       />
 
       <div className="flex flex-1 flex-col gap-5 px-4 pt-4">

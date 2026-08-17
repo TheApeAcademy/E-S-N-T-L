@@ -11,14 +11,16 @@ const TONES = {
 
 interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   tone?: keyof typeof TONES;
+  /** Use on a saturated/colored background (e.g. the orange TopBar) where the tinted TONES would lose contrast — renders a translucent white pill instead. */
+  onColor?: boolean;
 }
 
-export function Badge({ className, tone = "neutral", ...props }: BadgeProps) {
+export function Badge({ className, tone = "neutral", onColor, ...props }: BadgeProps) {
   return (
     <span
       className={cn(
         "inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium",
-        TONES[tone],
+        onColor ? "border border-white/40 bg-white/20 text-white" : TONES[tone],
         className,
       )}
       {...props}

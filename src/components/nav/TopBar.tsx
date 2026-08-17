@@ -13,7 +13,7 @@ export function TopBar({ title, backHref, right, className }: TopBarProps) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-30 flex h-14 items-center justify-between border-b border-neutral-200/60 bg-white/80 px-4 backdrop-blur-xl",
+        "sticky top-0 z-30 flex h-14 items-center justify-between bg-brand-500 px-4 shadow-sm",
         className,
       )}
     >
@@ -22,12 +22,12 @@ export function TopBar({ title, backHref, right, className }: TopBarProps) {
           <Link
             href={backHref}
             aria-label="Back"
-            className="-ml-2 flex h-9 w-9 items-center justify-center rounded-full text-ink hover:bg-neutral-100"
+            className="-ml-2 flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors hover:bg-white/15"
           >
             <ChevronLeft size={20} />
           </Link>
         )}
-        {title && <h1 className="text-base font-semibold text-ink">{title}</h1>}
+        {title && <h1 className="text-base font-semibold text-white">{title}</h1>}
       </div>
       {right}
     </header>
