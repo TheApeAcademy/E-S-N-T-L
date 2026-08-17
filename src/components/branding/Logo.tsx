@@ -1,60 +1,56 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const MARK_SIZES = {
-  md: "h-10 w-10 rounded-xl text-lg",
-  lg: "h-20 w-20 rounded-2xl text-4xl",
-  xl: "h-28 w-28 rounded-3xl text-6xl",
-} as const;
+// Source assets: public/logo-full.png (378x206) and public/logo-mark.png (157x106).
+const FULL_ASPECT = 206 / 378;
+const MARK_ASPECT = 106 / 157;
 
-const WORDMARK_SIZES = {
-  md: "text-xl",
-  lg: "text-3xl",
-  xl: "text-4xl",
-} as const;
+const FULL_WIDTHS = { sm: 160, md: 220, lg: 320, xl: 420 } as const;
+const MARK_HEIGHTS = { sm: 22, md: 32, lg: 56, xl: 88 } as const;
+
+type Size = keyof typeof FULL_WIDTHS;
 
 interface LogoProps {
-  size?: keyof typeof MARK_SIZES;
+  size?: Size;
   animated?: boolean;
-  withWordmark?: boolean;
-  withTagline?: boolean;
+  /** "full" = icon + ESNTL wordmark + tagline (needs a dark backdrop). "mark" = icon only, transparent, works anywhere. */
+  variant?: "full" | "mark";
   className?: string;
 }
 
-export function Logo({
-  size = "md",
-  animated = false,
-  withWordmark = true,
-  withTagline = false,
-  className,
-}: LogoProps) {
-  return (
-    <div className={cn("flex flex-col items-center gap-2", className)}>
-      <div className="flex items-center gap-3">
-        <span
-          className={cn(
-            "flex shrink-0 items-center justify-center bg-brand-500 font-bold text-white shadow-lg shadow-brand-500/30",
-            MARK_SIZES[size],
-            animated && "animate-jiggle",
-          )}
-        >
-          +
-        </span>
-        {withWordmark && (
-          <span
-            className={cn(
-              "font-bold tracking-tight text-ink",
-              WORDMARK_SIZES[size],
-            )}
-          >
-            ESNTL
-          </span>
+export function Logo({ size = "md", animated = false, variant = "mark", className }: LogoProps) {
+  if (variant === "full") {
+    const width = FULL_WIDTHS[size];
+    const height = Math.round(width * FULL_ASPECT);
+    return (
+      <div
+        className={cn(
+          "inline-flex items-center justify-center rounded-3xl bg-ink px-8 py-6 shadow-lg",
+          animated && "animate-jiggle",
+          className,
         )}
+      >
+        <Image
+          src="/logo-full.png"
+          alt="ESNTL — Everything in one Basket"
+          width={width}
+          height={height}
+          priority
+        />
       </div>
-      {withTagline && (
-        <p className="text-xs font-medium uppercase tracking-wide text-neutral-400">
-          Everything in one Basket
-        </p>
-      )}
-    </div>
+    );
+  }
+
+  const height = MARK_HEIGHTS[size];
+  const width = Math.round(height / MARK_ASPECT);
+  return (
+    <Image
+      src="/logo-mark.png"
+      alt="ESNTL"
+      width={width}
+      height={height}
+      priority
+      className={cn(animated && "animate-jiggle", className)}
+    />
   );
 }

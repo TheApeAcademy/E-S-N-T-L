@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="sticky top-0 z-30 border-b border-neutral-800 bg-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
           <Link href="/admin" className="flex items-center gap-2">
-            <Logo size="md" withWordmark={false} />
+            <Logo size="md" />
             <span className="text-sm font-bold tracking-wide text-white">
               ESNTL Admin
             </span>
