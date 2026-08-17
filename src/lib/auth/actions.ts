@@ -18,13 +18,29 @@ export async function signIn(
   const redirectTo = String(formData.get("redirect") ?? "/");
 
   const supabase = await createClient();
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
     return { error: error.message };
   }
 
   revalidatePath("/", "layout");
+
+  // No specific page was requested (the common case: just visiting /login
+  // directly) — send admins straight to the admin dashboard instead of the
+  // regular customer Home, since that's almost always what they're here for.
+  if (!redirectTo || redirectTo === "/") {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", data.user.id)
+      .single();
+
+    if (profile?.role === "admin") {
+      redirect("/admin");
+    }
+  }
+
   redirect(redirectTo || "/");
 }
 

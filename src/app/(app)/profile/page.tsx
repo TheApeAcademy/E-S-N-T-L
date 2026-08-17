@@ -8,6 +8,7 @@ import {
   RotateCcw,
   ChevronRight,
   LogOut,
+  LayoutDashboard,
 } from "lucide-react";
 import { requireUser } from "@/lib/auth/session";
 import { TopBar } from "@/components/nav/TopBar";
@@ -39,6 +40,22 @@ export default async function ProfilePage() {
             {profile?.phone && <p className="text-sm text-neutral-500">{profile.phone}</p>}
           </div>
         </div>
+
+        {profile?.role === "admin" && (
+          <Link
+            href="/admin"
+            className="flex items-center gap-3 rounded-2xl bg-ink px-4 py-3.5 text-white"
+          >
+            <LayoutDashboard size={18} />
+            <div>
+              <p className="text-sm font-medium">Admin Dashboard</p>
+              <p className="text-xs text-neutral-400">
+                Manage businesses, customers, orders & more
+              </p>
+            </div>
+            <ChevronRight size={16} className="ml-auto text-neutral-500" />
+          </Link>
+        )}
 
         <div className="flex flex-col divide-y divide-neutral-100 rounded-2xl border border-neutral-200 bg-white">
           {LINKS.map(({ href, label, icon: Icon, description }) => (

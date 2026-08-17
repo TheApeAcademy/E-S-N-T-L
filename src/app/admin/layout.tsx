@@ -28,6 +28,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </span>
           </Link>
           <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="rounded-lg border border-neutral-700 px-3 py-1.5 text-xs font-medium text-neutral-300 hover:border-neutral-500"
+            >
+              Customer app
+            </Link>
             <span className="hidden text-xs text-neutral-400 sm:inline">
               {profile?.full_name}
             </span>
